@@ -4,7 +4,8 @@ import Article from './Article'
 
 class ArticleList extends Component {
     state = {
-        openArticleId: null
+        openArticleId: null,
+        isShowComments: false,
     }
 
     render() {
@@ -14,6 +15,8 @@ class ArticleList extends Component {
             <Article article={article}
                      isOpen={article.id === this.state.openArticleId}
                      onButtonClick={this.toggleArticle(article.id)}
+                     isShowComments={article.id === this.state.openArticleId && this.state.isShowComments}
+                     toggleComments={this.toggleComments}
             />
         </li>)
         return (
@@ -24,8 +27,15 @@ class ArticleList extends Component {
     }
 
     toggleArticle = (openArticleId) => (ev) => {
-        this.setState({openArticleId})
+        this.setState((state) => {
+            if (state.openArticleId === openArticleId) return {openArticleId: null};
+            else return {openArticleId, isShowComments: false};
+        });
     }
+
+  toggleComments = () => {
+    this.setState({isShowComments: !this.state.isShowComments})
+  }
 }
 
 
