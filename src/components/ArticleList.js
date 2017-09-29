@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Article from './Article'
+import Accordeon from './AccordeonClass';
+import AccordeonDecorator from '../decorators/Accordeon';
 
-class ArticleList extends Component {
-    state = {
-        openArticleId: null
-    }
+/*class ArticleList extends Accordeon {
 
     render() {
         const {articles} = this.props
@@ -22,30 +21,26 @@ class ArticleList extends Component {
             </ul>
         )
     }
+}*/
 
-    toggleArticle = (openArticleId) => {
-        if (this.memoized.get(openArticleId)) return this.memoized.get(openArticleId)
-        const func = (ev) => {
-            this.setState({
-                openArticleId: this.state.openArticleId === openArticleId ? null : openArticleId
-            })
-        }
 
-        this.memoized.set(openArticleId, func)
-
-        return func
-    }
-
-    memoized = new Map()
+const ArticleList = (props) => {
+    // debugger;
+    const {articles, openArticleId, toggleArticle } = props;
+    if (!articles.length) return <h3>No Articles</h3>;
+    const articleElements = articles.map((article) => (
+        <li key={article.id}>
+            <Article article={article}
+                     isOpen={article.id === openArticleId}
+                     onButtonClick={toggleArticle(article.id)}
+            />
+        </li>
+    ));
+    return (
+    <ul>
+      {articleElements}
+    </ul>
+    )
 }
 
-
-ArticleList.defaultProps = {
-    articles: []
-}
-
-ArticleList.propTypes = {
-    articles: PropTypes.array.isRequired
-}
-
-export default ArticleList
+export default AccordeonDecorator(ArticleList);
