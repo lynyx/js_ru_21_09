@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Comment from './Comment'
 import PropTypes from 'prop-types'
 import toggleOpen from '../decorators/toggleOpen'
+import Form from './Form/index';
 
 class CommentList extends Component {
     componentDidMount() {
@@ -17,7 +18,7 @@ class CommentList extends Component {
     }
 
     render() {
-        const {comments, isOpen, toggleOpen} = this.props
+        const {isOpen, toggleOpen} = this.props
         const text = isOpen ? 'hide comments' : 'show comments'
         return (
             <div>
@@ -41,6 +42,7 @@ function getBody(props) {
     return (
         <div>
             {body}
+            <Form />
         </div>
     )
 }

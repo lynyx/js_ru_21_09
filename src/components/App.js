@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import Select from 'react-select'
 import ArticleList from './ArticleList'
 import ArticlesChart from './ArticlesChart'
+import Calendar from './Calendar';
+import 'react-day-picker/lib/style.css';
 import 'react-select/dist/react-select.css'
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
                 <h1>App name</h1>
                 User: <input type = 'text' value = {username} onChange = {this.handleUserChange}/>
                 <Select options={options} value={selected} onChange={this.handleChange} multi />
+                <Calendar />
                 <ArticleList articles={articles}/>
                 <ArticlesChart articles={articles}/>
             </div>
