@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { addComment } from '../../AC';
 import './style.css'
+
+const mapDispatchToProps = dispatch => ({
+    addComment: (user, text) => dispatch(addComment(user, text)),
+});
 
 class CommentForm extends Component {
     static propTypes = {
@@ -8,7 +14,7 @@ class CommentForm extends Component {
     state = {
         user: '',
         text: ''
-    }
+    };
 
     render() {
         return (
@@ -25,7 +31,8 @@ class CommentForm extends Component {
     }
 
     handleSubmit = ev => {
-        ev.preventDefault()
+        ev.preventDefault();
+        this.props.addComment(this.state.user, this.state.text)
         this.setState({
             user: '',
             text: ''
@@ -58,4 +65,4 @@ const limits = {
     }
 }
 
-export default CommentForm
+export default connect(null, mapDispatchToProps)(CommentForm);
